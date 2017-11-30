@@ -6,6 +6,20 @@ import './App.css';
 import {Form , FormControl , Button} from 'react-bootstrap';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      clockTime : 25 ,
+      inputTime : 25 ,
+      clockIsRunning : 0
+    }
+  }
+
+  startClock() {
+      this.setState({clockIsRunning : 1 , clockTime : this.state.inputTime})
+  }
+
   render() {
     return (
       <div className="App">
@@ -15,7 +29,10 @@ class App extends Component {
           <h1 className="App-title">This would be a pomodoro timer</h1>
         </header>
 
-        <Clock />
+        <Clock
+          time = {this.state.clockTime} 
+          running = {this.state.clockIsRunning}
+        />
 
 
 
@@ -23,10 +40,10 @@ class App extends Component {
                   <FormControl
                     className="time-input"
                     placeholder='How much time do you need to focus?'
-                    onChange={event => this.setState({newDeadline: event.target.value})}
+                    onChange={event => this.setState({inputTime: event.target.value})}
                   />
-                  <Button onClick={() => this.changeDeadline()}>
-                    Submit
+                <Button onClick={() => this.startClock()}>
+                    Start
                   </Button>
         </Form>
 
